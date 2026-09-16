@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ categoria.nome }} - BrasZela{% endblock %}
+
+{% block conteudo %}
+<div class="secao">
+    <h2>{{ categoria.emoji }} {{ categoria.nome }}</h2>
+    <div class="produtos">
+        {% for produto in produtos %}
+            {% include 'card_produto.html' %}
+        {% else %}
+            <p>Nenhum produto encontrado nesta categoria.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

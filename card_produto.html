@@ -1,0 +1,55 @@
+<div class="produto-card">
+    <!-- Topo Branco -->
+    <div class="produto-topo">
+        <button class="btn-favorito" type="button" aria-label="Favoritar">
+            <i class="fi fi-rr-heart"></i>
+        </button>
+        <a href="{{ url_for('detalhe_produto', produto_id=produto.id) }}" class="produto-midia">
+            {% if produto.imagem %}
+                <img src="{{ url_for('static', filename='img/produtos/' + produto.imagem) }}" alt="{{ produto.nome }}" class="produto-img">
+            {% else %}
+                <span class="emoji" style="font-size: 3rem;">{{ produto.emoji or '🍫' }}</span>
+            {% endif %}
+        </a>
+    </div>
+
+    <!-- Corpo Creme/Bege -->
+    <div class="produto-corpo">
+        <h3 class="produto-titulo">
+            <a href="{{ url_for('detalhe_produto', produto_id=produto.id) }}">{{ produto.nome }}</a>
+        </h3>
+
+        {% if produto.tag %}
+            <div class="tag-container">
+            {% for produtox in produto.tag %}
+                <span class="tag-promocional">{{ produtox }}</span>
+            {% endfor %}
+            </div>
+        {% endif %}
+
+        <form action="{{ url_for('adicionar_carrinho', produto_id=produto.id) }}" method="post" class="form-compra">
+            <div class="preco-e-qtd">
+                <div class="preco-bloco">
+                    {% if produto.preco_antigo %}
+                        <div class="preco-antigo">R$ {{ "%.2f"|format(produto.preco_antigo)|replace('.', ',') }}</div>
+                    {% endif %}
+                    <div class="preco-atual-wrapper">
+                        <span class="preco-cifrao">R$</span>
+                        <span class="preco-valor">{{ "%.2f"|format(produto.preco)|replace('.', ',') }}</span>
+                        <span class="preco-unidade">/un</span>
+                    </div>
+                </div>
+
+                <div class="seletor-qtd">
+                    <button type="button" class="btn-qtd" onclick="this.nextElementSibling.stepDown()">–</button>
+                    <input type="number" name="quantidade" value="1" min="1" max="10" readonly>
+                    <button type="button" class="btn-qtd btn-mais" onclick="this.previousElementSibling.stepUp()">+</button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-adicionar">
+                ADICIONAR AO CARRINHO <i class="fi fi-rr-shopping-cart"></i>
+            </button>
+        </form>
+    </div>
+</div>

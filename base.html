@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block titulo %}BrasZela - Chocolates Artesanais{% endblock %}</title>
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/icon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-regular-chubby/css/uicons-regular-chubby.css">
+</head>
+
+<body>
+
+    <div class="topbar">
+        <i class="fi fi-rr-truck-side"></i>
+        Frete grátis em pedidos acima de R$ 99
+        <span class="topbar-separador">•</span>
+        Parcele em até 6x sem juros
+    </div>
+
+    <header class="header">
+        <a class="logo" href="{{ url_for('index') }}">
+            <img src="{{ url_for('static', filename='img/icon.png') }}" alt="BrasZela" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'44\' height=\'44\'><text y=\'32\' font-size=\'32\'>🍫</text></svg>';">
+            <span>Bras<span class="logo-destaque">Zela</span></span>
+        </a>
+
+        <form class="busca" action="{{ url_for('busca') }}" method="get">
+            <label class="sr-only" for="text-busca">Buscar produtos</label>
+            <input type="text" name="q" id="text-busca" placeholder="Busque por chocolates, trufas, presentes..." value="{{ busca or '' }}" autocomplete="off">
+            <button type="submit" aria-label="Pesquisar">
+                <i class="fi fi-rr-search"></i>
+            </button>
+        </form>
+
+        <div class="acoes">
+            {% if usuario %}
+                <a class="user" href="#" aria-label="Perfil do usuário">
+                    <i class="fi fi-rr-user"></i>
+                    <span>{{ usuario }}</span>
+                </a>
+            {% else %}
+                <a class="user" href="{{ url_for('login') }}" aria-label="Entrar na conta">
+                    <i class="fi fi-rr-user"></i>
+                    <span>Entrar</span>
+                </a>
+            {% endif %}
+
+            <div class="minicart">
+                <a class="minicart-link" href="{{ url_for('carrinho') }}" aria-label="Carrinho">
+                    <i class="fi fi-rr-shopping-cart"></i>
+                    <span class="minicart-quantity">{{ total_carrinho }}</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="menu" aria-label="Categorias de produtos">
+        <a href="{{ url_for('index') }}" class="menu-inicio">
+            <i class="fi fi-rr-home"></i> Início
+        </a>
+
+        {% for c in categorias %}
+        <a href="{{ url_for('categoria', slug=c.slug) }}">
+            <span>{{ c.emoji }}</span> {{ c.nome }}
+        </a>
+        {% endfor %}
+    </nav>
+
+    <!-- Mensagens Flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <main>
+        {% block conteudo %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer-brand">
+            <a class="logo" href="{{ url_for('index') }}">
+                BrasZela
+            </a>
+            <p>Chocolates artesanais feitos<br>com carinho para momentos especiais.</p>
+        </div>
+
+        <div class="footer-coluna">
+            <h4>Institucional</h4>
+            <ul>
+                <li><a href="{{ url_for('institucional', pagina='quem-somos') }}">Quem somos</a></li>
+                <li><a href="{{ url_for('institucional', pagina='lojas') }}">Nossas lojas</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-coluna">
+            <h4>Atendimento</h4>
+            <ul>
+                <li><a href="{{ url_for('institucional', pagina='atendimento') }}">Central de atendimento</a></li>
+                <li><a href="{{ url_for('institucional', pagina='trocas') }}">Trocas e devoluções</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-coluna">
+            <h4>Siga-nos</h4>
+            <ul>
+                <li><a href="https://www.instagram.com/atomicvultte">Instagram</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <div class="footer-bottom">
+        <p>© 2026 BrasZela. Todos os direitos reservados.</p>
+    </div>
+
+    <script>
+        const busca = document.querySelector(".busca");
+        const input = document.querySelector("#text-busca");
+
+        busca.addEventListener("submit", function (event) {
+            const pequena = window.matchMedia("(max-width: 720px)").matches;
+            if (pequena && !busca.classList.contains("aberta")) {
+                event.preventDefault();
+                busca.classList.add("aberta");
+                input.focus();
+                return;
+            }
+            if (input.value.trim() === "") {
+                event.preventDefault();
+                input.focus();
+            }
+        });
+    </script>
+</body>
+</html>

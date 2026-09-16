@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block titulo %}{{ titulo }} - BrasZela{% endblock %}
+
+{% block conteudo %}
+<div class="secao institucional-container">
+    <div class="institucional-card">
+        <h1>{{ titulo }}</h1>
+        <div class="institucional-linha-decorativa"></div>
+
+        {% if pagina == 'quem-somos' %}
+            <div class="institucional-conteudo">
+                <p class="destaque-texto">
+                    Fundada no coração do Brasil mas, com parceiria à Venezuela, a <strong>BrasZela</strong> nasceu com a missão de transformar o puro cacau artesanal em momentos inesquecíveis de carinho e prazer.
+                </p>
+                
+                <h2>Nossa História</h2>
+                <p>
+                    Tudo começou em uma pequena cozinha familiar, onde a paixão pelo chocolate encontrou métodos tradicionais de fabricação. Selecionamos rigorosamente cada amêndoa de cacau de produtores sustentáveis locais de ambos paises, garantindo um produto final com textura aveludada, aroma marcante e sabor inconfundível.
+                </p>
+
+                <h2>Nossos Compromissos</h2>
+                <ul>
+                    <li><strong>Qualidade Premium:</strong> Ingredientes 100% selecionados e manteiga de cacau pura.</li>
+                    <li><strong>Sustentabilidade:</strong> Parceria com pequenos produtores de cacau agroflorestal.</li>
+                    <li><strong>Arte & Afeto:</strong> Produção artesanal com atenção meticulosa a cada detalhe.</li>
+                </ul>
+            </div>
+
+        {% elif pagina == 'lojas' %}
+            <div class="institucional-conteudo">
+                <p>Venha conhecer nossas boutiques e degustar nossas criações recém-feitas!</p>
+                
+                <div class="lojas-grid">
+                    <div class="loja-item">
+                        <h3>Boutique Flagship - Jardins</h3>
+                        <p><i class="fi fi-rr-marker"></i> Rua ###### ###, 999 - São Paulo, SP</p>
+                        <p><i class="fi fi-rr-clock"></i> Segunda a Sábado: 09h às 20h | Domingo: 10h às 18h</p>
+                        <p><i class="fi fi-rr-phone-call"></i> (11) 9####-####</p>
+                    </div>
+
+                    <div class="loja-item">
+                        <h3>Loja Auruda - Savassi</h3>
+                        <p><i class="fi fi-rr-marker"></i> Rua ######, 999 - Belo Horizonte, MG</p>
+                        <p><i class="fi fi-rr-clock"></i> Segunda a Sábado: 10h às 21h</p>
+                        <p><i class="fi fi-rr-phone-call"></i> (31) 9####-####</p>
+                    </div>
+                </div>
+            </div>
+
+        {% elif pagina == 'atendimento' %}
+            <div class="institucional-conteudo">
+                <p>Estamos prontos para te atender e tirar qualquer dúvida sobre nossos chocolates e pedidos.</p>
+
+                <div class="atendimento-box">
+                    <div class="atendimento-card">
+                        <i class="fi fi-rr-envelope"></i>
+                        <h3>E-mail</h3>
+                        <p>atendimento@braszela.###.##</p>
+                        <span>Resposta em até 24h úteis</span>
+                    </div>
+
+                    <div class="atendimento-card">
+                        <i class="fi fi-rr-comments"></i>
+                        <h3>WhatsApp</h3>
+                        <p>(31) 9####-####</p>
+                        <span>Segunda a Sexta, das 08h às 18h</span>
+                    </div>
+                </div>
+            </div>
+
+        {% elif pagina == 'trocas' %}
+            <div class="institucional-conteudo">
+                <h2>Política de Trocas e Devoluções</h2>
+                <p>
+                    Como lidamos com produtos alimentícios perecíveis e sensíveis à temperatura, garantimos total atenção e cuidado no transporte e na substituição do seu pedido.
+                </p>
+
+                <h3>1. Produtos Danificados ou Incorretos</h3>
+                <p>
+                    Caso seu pedido chegue com a embalagem danificada, derretido ou diferente do solicitado, entre em contato conosco em até <strong>7 dias corridos</strong> após o recebimento com fotos do produto.
+                </p>
+
+                <h3>2. Processo de Reembolso</h3>
+                <p>
+                    Após a análise da solicitação por nossa equipe de atendimento, realizaremos o envio de um novo lote com frete grátis ou o estorno integral do valor pago na mesma modalidade de pagamento original.
+                </p>
+            </div>
+
+        {% else %}
+            <div class="institucional-conteudo">
+                <p>Informação institucional em atualização. Caso precise de ajuda imediata, entre em contato através da nossa central de atendimento.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

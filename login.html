@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block titulo %}Entrar ou Criar Conta - BrasZela{% endblock %}
+
+{% block conteudo %}
+<div class="secao auth-container">
+    <div class="auth-card">
+        <!-- Cabeçalho das Abas -->
+        <div class="auth-tabs">
+            <button type="button" class="tab-btn active" onclick="alternarAba('login')">Entrar</button>
+            <button type="button" class="tab-btn" onclick="alternarAba('cadastro')">Criar Conta</button>
+        </div>
+
+        <!-- Formulário de Login -->
+        <form id="form-login" class="auth-form active" action="{{ url_for('login') }}" method="post">
+            <h2>Boas-vindas de volta!</h2>
+            <p class="auth-subtitulo">Acesse sua conta para ver seus pedidos e favoritos.</p>
+
+            <div class="input-grupo">
+                <label for="login-email">E-mail</label>
+                <div class="input-icone">
+                    <i class="fi fi-rr-envelope"></i>
+                    <input type="email" id="login-email" name="email" placeholder="seu@email.com" required>
+                </div>
+            </div>
+
+            <div class="input-grupo">
+                <label for="login-senha">Senha</label>
+                <div class="input-icone">
+                    <i class="fi fi-rr-lock"></i>
+                    <input type="password" id="login-senha" name="senha" placeholder="••••••••" required>
+                </div>
+            </div>
+
+            <div class="auth-opcoes">
+                <label class="checkbox-lembrar">
+                    <input type="checkbox" name="lembrar"> Lembrar de mim
+                </label>
+                <a href="#" class="link-esqueci">Esqueceu a senha?</a>
+            </div>
+
+            <button type="submit" class="btn-auth-submit">ENTRAR</button>
+        </form>
+
+        <!-- Formulário de Cadastro -->
+        <form id="form-cadastro" class="auth-form" action="/" method="post" style="display: none;">
+            <h2>Criar uma conta</h2>
+            <p class="auth-subtitulo">Cadastre-se para acompanhar entregas e ofertas exclusivas.</p>
+
+            <div class="input-grupo">
+                <label for="cad-nome">Nome Completo</label>
+                <div class="input-icone">
+                    <i class="fi fi-rr-user"></i>
+                    <input type="text" id="cad-nome" name="nome" placeholder="Seu nome" required>
+                </div>
+            </div>
+
+            <div class="input-grupo">
+                <label for="cad-email">E-mail</label>
+                <div class="input-icone">
+                    <i class="fi fi-rr-envelope"></i>
+                    <input type="email" id="cad-email" name="email" placeholder="seu@email.com" required>
+                </div>
+            </div>
+
+            <div class="input-grupo">
+                <label for="cad-senha">Senha</label>
+                <div class="input-icone">
+                    <i class="fi fi-rr-lock"></i>
+                    <input type="password" id="cad-senha" name="senha" placeholder="Crie uma senha forte" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-auth-submit">CRIAR CONTA</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function alternarAba(aba) {
+        const formLogin = document.getElementById('form-login');
+        const formCadastro = document.getElementById('form-cadastro');
+        const btns = document.querySelectorAll('.tab-btn');
+
+        if (aba === 'login') {
+            formLogin.style.display = 'block';
+            formCadastro.style.display = 'none';
+            btns[0].classList.add('active');
+            btns[1].classList.remove('active');
+        } else {
+            formLogin.style.display = 'none';
+            formCadastro.style.display = 'block';
+            btns[0].classList.remove('active');
+            btns[1].classList.add('active');
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block titulo %}Seu Carrinho - BrasZela{% endblock %}
+
+{% block conteudo %}
+<div class="secao">
+    <h2>Seu Carrinho de Compras</h2>
+
+    {% if not itens %}
+        <p>Seu carrinho está vazio. <a href="{{ url_for('index') }}">Clique aqui para continuar comprando.</a></p>
+    {% else %}
+        <table class="tabela-carrinho">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Qtd</th>
+                    <th>Preço Unitário</th>
+                    <th>Total</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in itens %}
+                <tr>
+                    <td>{{ item.produto.nome }}</td>
+                    <td>{{ item.quantidade }}</td>
+                    <td>R$ {{ "%.2f"|format(item.produto.preco) }}</td>
+                    <td>R$ {{ "%.2f"|format(item.total) }}</td>
+                    <td><a href="{{ url_for('remover_carrinho', produto_id=item.produto.id) }}" class="btn-remover">Remover</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="resumo-carrinho">
+            <p>Subtotal: <strong>R$ {{ "%.2f"|format(subtotal) }}</strong></p>
+            <p>Frete: <strong>{% if frete == 0 %}GRÁTIS{% else %}R$ {{ "%.2f"|format(frete) }}{% endif %}</strong></p>
+            <h3>Total: R$ {{ "%.2f"|format(total) }}</h3>
+            <button class="btn">Finalizar Compra</button>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
